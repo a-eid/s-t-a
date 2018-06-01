@@ -3,9 +3,12 @@ import eEmitter from "./EventEmitter"
 
 class Header extends Component {
   state = {}
+  subscription = []
   emit1 = () => {
     eEmitter.emit("event/1")
+    this.subscription.push(eEmitter.addListener("xx"))
   }
+
   emit2 = () => {
     eEmitter.emit("event/2")
   }
@@ -16,6 +19,9 @@ class Header extends Component {
         <button onClick={this.emit2}> event 2</button>
       </div>
     )
+  }
+  componentDidUpdate(prevProps, prevState) {
+    this.subscription && this.subscription.forEach((x) => x.remove())
   }
 }
 

@@ -1,39 +1,24 @@
 import React, {Component} from "react"
-import Header from "./Header"
-import Main from "./Main"
-import eEmitter from "./EventEmitter"
-
-import "./App.css"
+import {BrowserRouter, Route} from "react-router-dom"
+import Aux from "./hoc/Aux/Aux"
+import Home from "./Home/Home"
+import classes from "./App.css"
 
 class App extends Component {
-  state = {
-    event1: 0,
-    event2: 0,
-  }
-  componentDidMount() {
-    eEmitter.addListener("event/1", () => {
-      this.setState({
-        event1: this.state.event1 + 1,
-      })
-    })
+  componentDidMount() {}
 
-    eEmitter.addListener("event/2", () => {
-      this.setState({
-        event2: this.state.event2 + 1,
-      })
-    })
-  }
   render() {
     return (
-      <div className="App">
-        <Header />
-        <div>{this.state.event1}</div>
-        <div>{this.state.event2}</div>
-        <hr />
-        <br />
-        <br />
-        <Main />
-      </div>
+      <BrowserRouter>
+        <Aux>
+          <p className={classes.App}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint iste dolorum inventore eius, rem, magni dolore
+            fugit, nulla consequatur exercitationem repudiandae vitae libero corrupti totam. Error ducimus modi
+            molestias tenetur?j
+          </p>
+          <Route path="/" component={Home} />
+        </Aux>
+      </BrowserRouter>
     )
   }
 }

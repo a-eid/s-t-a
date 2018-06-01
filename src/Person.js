@@ -6,19 +6,20 @@ class Person extends Component {
     event1: 0,
     event2: 0,
   }
-
+  subscription = []
   componentDidMount() {
-    eEmitter.addListener("event/1", () => {
+    const x = eEmitter.addListener("event/1", () => {
       this.setState({
         event1: this.state.event1 + 1,
       })
     })
 
-    eEmitter.addListener("event/2", () => {
+    const y = eEmitter.addListener("event/2", () => {
       this.setState({
         event2: this.state.event2 + 1,
       })
     })
+    this.subscription.push(x, y)
   }
   render() {
     return (
@@ -27,6 +28,12 @@ class Person extends Component {
         <p>{this.state.event2}</p>
       </div>
     )
+  }
+  componentWillUnmount() {
+    this.subscription &&
+      this.subscription.forEach((x) => {
+        x.remove()
+      })
   }
 }
 
